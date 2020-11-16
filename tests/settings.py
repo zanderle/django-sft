@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_sft',
+    'webpack_loader',
+
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here
@@ -120,3 +122,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'tests/static')
 ]
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'static/dist/', # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'tests/webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+        'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
+    }
+}
+
+
+GET_STYLE_TAG = lambda templatename: f"""{{% render_bundle '{templatename.replace('/sft', '').replace('/', '_')}' 'css' %}}"""
+GET_SCRIPT_TAG = lambda templatename: f"""{{% render_bundle '{templatename.replace('/sft', '').replace('/', '_')}' 'js' %}}"""
