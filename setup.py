@@ -41,7 +41,7 @@ if sys.argv[-1] == 'tag':
     os.system("git push --tags")
     sys.exit()
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 requirements = open('requirements.txt').readlines()
 
@@ -50,6 +50,7 @@ setup(
     version=version,
     description="""Django Single File Templates -- inspired by Vue's Single file components""",
     long_description=readme + '\n\n' + history,
+    long_description_content_type="text/markdown",
     author='Zan Anderle',
     author_email='hello@zanderle.com',
     url='https://github.com/zanderle/django-sft',
@@ -65,7 +66,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.1',
-        'Framework :: Django :: 3',
+        'Framework :: Django :: 3.1',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
