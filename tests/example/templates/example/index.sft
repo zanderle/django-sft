@@ -1,6 +1,5 @@
 <template>
 {% extends 'example/base.sft' %}
-{% load render_bundle from webpack_loader %}
 
 {% block main %}
 <h1>This is index page</h1>
@@ -12,10 +11,8 @@
 </template>
 
 <script>
-import moment from 'moment';
-
 setInterval(() => {
-    const today = moment();
+    const today = new Date();
     document.getElementById('time').innerHTML = today;
 }, 1000);
 

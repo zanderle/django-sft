@@ -29,11 +29,8 @@ page.addEventListener('click', (ev) => {
 });
 </script>
 
-<style lang="scss">
+<style>
 body {
   background-color: gray;
-  p {
-    padding: 10px;
-  }
 }
 </style>
