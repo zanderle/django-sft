@@ -10,6 +10,8 @@ Django Single File Templates
 Django Single File Templates \-- inspired by Vue\'s Single file
 components
 
+> Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
+
 Motivation
 ----------
 
@@ -78,24 +80,24 @@ script and style tags:
 <template>
 {% load static %}
 <html lang=\"en\">
-<head>
-<meta charset=\"UTF-8\">
-<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-<title>Example Website</title>
-</head>
-<body>
-<header>
-<nav>
-<a href=\"/\">Home</a>
-<a href=\"/page\" id=\"page\">Page</a>
-</nav>
-</header>
-{% block main %}
-<h1>This is where the content will go</h1>
-{% endblock %}
-</body>
+    <head>
+        <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <title>Example Website</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href=\"/\">Home</a>
+                <a href=\"/page\" id=\"page\">Page</a>
+            </nav>
+        </header>
+        {% block main %}
+        <h1>This is where the content will go</h1>
+        {% endblock %}
+    </body>
 </html>
-</template>}
+</template>
 <script>
 const page = document.getElementById('page');
 page.addEventListener('click', (ev) => {
@@ -125,11 +127,11 @@ Single file templates can also extend other STFs.
 <template>
 {% extends 'example/base.sft' %}}
 {% block main %}
-<h1>This is index page</h1>
-<h2>Update</h2>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur reprehenderit, laboriosam exercitationem, provident aut.</p>
+    <h1>This is index page</h1>
+    <h2>Update</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur reprehenderit, laboriosam exercitationem, provident aut.</p>
 
-<h2 id="time"></h2>
+    <h2 id="time"></h2>
 {% endblock %}
 </template>
 
