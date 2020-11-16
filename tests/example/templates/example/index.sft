@@ -1,0 +1,30 @@
+<template>
+{% extends 'example/base.sft' %}
+{% load render_bundle from webpack_loader %}
+
+{% block main %}
+<h1>This is index page</h1>
+<h2>Update</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur reprehenderit, laboriosam exercitationem, provident aut.</p>
+
+<h2 id="time"></h2>
+{% endblock %}
+</template>
+
+<script>
+import moment from 'moment';
+
+setInterval(() => {
+    const today = moment();
+    document.getElementById('time').innerHTML = today;
+}, 1000);
+
+</script>
+
+<style>
+p {
+    width: 50%;
+    background-color: white;
+    margin: auto;
+}
+</style>

@@ -1,0 +1,39 @@
+<template>
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Website</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/page" id="page">Page</a>
+      </nav>
+    </header>
+    {% block main %}
+      <h1>This is where the content will go</h1>
+    {% endblock %}
+  </body>
+</html>
+</template>
+
+<script>
+const page = document.getElementById('page');
+page.addEventListener('click', (ev) => {
+  ev.preventDefault();
+  alert('You clicked the page');
+});
+</script>
+
+<style lang="scss">
+body {
+  background-color: gray;
+  p {
+    padding: 10px;
+  }
+}
+</style>
