@@ -1,7 +1,7 @@
 Django Single File Templates
 ============================
 
-[![image](https://badge.fury.io/py/django-sft.svg)](https://badge.fury.io/py/django-sft)
+[![image](https://badge.fury.io/py/django-sft.svg)](https://badge.fury.io/py/django-sft.svg)
 
 [![image](https://travis-ci.org/zanderle/django-sft.svg?branch=master)](https://travis-ci.org/zanderle/django-sft)
 
