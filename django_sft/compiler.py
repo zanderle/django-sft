@@ -1,3 +1,4 @@
+import logging
 import os
 from pathlib import Path
 
@@ -6,6 +7,9 @@ from django.template.loaders.app_directories import get_app_template_dirs
 
 from django_sft.parser import TemplateParser
 from django_sft.settings import GET_SCRIPT_TAG, GET_STYLE_TAG
+
+
+logger = logging.getLogger(__name__)
 
 
 class SFTCompiler(object):
@@ -33,6 +37,7 @@ class SFTCompiler(object):
             self.compile_template(template)
 
     def compile_template(self, origin):
+        # TODO This function should be cleaned up
         with open(origin) as f:
             contents = f.read()
         parser = TemplateParser()
@@ -87,4 +92,7 @@ class SFTCompiler(object):
 
 compiler = SFTCompiler()
 def sft_compile():
-    compiler.compile()
+    try:
+        compiler.compile()
+    except Exception as e:
+        logger.exception(f"SFT compiling failed: {e}")
