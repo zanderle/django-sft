@@ -7,7 +7,7 @@ Django Single File Templates
 
 [![image](https://codecov.io/gh/zanderle/django-sft/branch/master/graph/badge.svg)](https://codecov.io/gh/zanderle/django-sft)
 
-Django Single File Templates \-- inspired by Vue\'s Single file
+Django Single File Templates \-- inspired by Vue's Single file
 components
 
 > Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
@@ -26,7 +26,7 @@ From Vue\'s documentation:
 > collocating them actually makes the component more cohesive and
 > maintainable.
 
-Similar logic could be applied to Django\'s templates. HTML, JavaScript
+Similar logic could be applied to Django's templates. HTML, JavaScript
 and CSS are inherently coupled so it makes sense to put them together.
 
 Introducing **Django Single File Templates (SFT)**.
@@ -38,7 +38,7 @@ Install Django Single File Templates:
 
     pip install django-sft
 
-Add it to your \`INSTALLED\_APPS\`:
+Add it to your `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS = (
@@ -79,17 +79,17 @@ script and style tags:
 ```html
 <template>
 {% load static %}
-<html lang=\"en\">
+<html lang="en">
     <head>
-        <meta charset=\"UTF-8\">
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Example Website</title>
     </head>
     <body>
         <header>
             <nav>
-                <a href=\"/\">Home</a>
-                <a href=\"/page\" id=\"page\">Page</a>
+                <a href="/">Home</a>
+                <a href="/page" id="page">Page</a>
             </nav>
         </header>
         {% block main %}
@@ -118,7 +118,7 @@ loader will get the right template for you.
 
 ```python
 def view(request):
-    return render('my-template.sft')}
+    return render('my-template.sft')
 ```
 
 Single file templates can also extend other STFs.
