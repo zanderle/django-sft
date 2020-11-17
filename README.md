@@ -118,7 +118,7 @@ loader will get the right template for you.
 
 ```python
 def view(request):
-return render('my-template.sft')}
+    return render('my-template.sft')}
 ```
 
 Single file templates can also extend other STFs.
