@@ -1,5 +1,6 @@
 <template>
 {% extends 'example/base.sft' %}
+{% load static %}
 
 {% block main %}
 <h1>This is index page</h1>

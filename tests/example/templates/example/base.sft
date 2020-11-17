@@ -1,6 +1,5 @@
 <template>
 {% load static %}
-{% load render_bundle from webpack_loader %}
 <html lang="en">
   <head>
     <meta charset="UTF-8">
