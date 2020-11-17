@@ -48,11 +48,14 @@ class SFTCompiler(object):
         style = lines[parser.style_start:parser.style_end - 1] if parser.style_start else None
 
         templates = Path(origin)
+        # TODO Should be able to control this with settings
         templates = templates.parent.joinpath('sft', templates.name)
+        # TODO Should be able to control this with settings
         static = Path(*map(lambda x: x if x != 'templates' else 'static', templates.parts))
         static.parent.mkdir(parents=True, exist_ok=True)
         templates.parent.mkdir(parents=True, exist_ok=True)
 
+        # TODO Should be able to control this with settings
         staticname = "/".join(static.parts[static.parts.index('static')+1:-1]) + f"/{static.stem}"
 
         script_tags = []
@@ -74,6 +77,7 @@ class SFTCompiler(object):
         style_tags_output = "\n".join(style_tags)
         script_tags_output = "\n".join(script_tags)
         if parser.head_end:
+            # TODO The block name should be customizable
             style_tags_output += "{% block sft_style %}{% endblock sft_style %}"
             html.insert(parser.head_end - 2, style_tags_output)
         elif html:
