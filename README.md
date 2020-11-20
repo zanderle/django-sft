@@ -3,13 +3,37 @@ Django Single File Templates
 
 [![image](https://badge.fury.io/py/django-sft.svg)](https://badge.fury.io/py/django-sft.svg)
 
-[![image](https://travis-ci.org/zanderle/django-sft.svg?branch=master)](https://travis-ci.org/zanderle/django-sft)
-
-[![image](https://codecov.io/gh/zanderle/django-sft/branch/master/graph/badge.svg)](https://codecov.io/gh/zanderle/django-sft)
+[![Python 3.x](https://img.shields.io/pypi/pyversions/django-sft.svg?logo=python&logoColor=white)](https://pypi.org/project/django-sft/)
 
 Django Single File Templates \-- inspired by Vue's Single file
 components
 
+Make your Django templates more organized by holding your HTML and all the related CSS and JavaScript in a sensible way.
+
+`example.sft`
+```html
+<template>
+{% extends 'example/base.sft' %}}
+{% block main %}
+    <h1>This is index page</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur reprehenderit, laboriosam exercitationem, provident aut.</p>
+
+    <h2 id="time"></h2>
+{% endblock %}
+</template>
+
+<script>
+document.getElementById('time').innerHTML = new Date();
+</script>
+
+<style>
+p {
+    width: 50%;
+    background-color: white;
+    margin: auto;
+}
+</style>
+```
 > Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
 
 Motivation
