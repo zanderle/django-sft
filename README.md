@@ -172,6 +172,33 @@ p {
 </style>
 ```
 
+It can also include external scripts and styles (bootstrap example):
+
+```html
+<template>
+...
+</template>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const page = document.getElementById('page');
+page.addEventListener('click', (ev) => {
+  ev.preventDefault();
+  alert('You clicked the page');
+});
+</script>
+
+<style src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"></style>
+
+<style>
+body {
+  background-color: gray;
+}
+</style>
+```
+
 Single file templates will automatically be parsed and compiled when you
 `manage.py runserver` if `DEBUG = True`. You can also run
 `manage.py compile_sft` to compile manually.
