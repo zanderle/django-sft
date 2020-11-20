@@ -12,33 +12,35 @@ class TemplateParser(HTMLParser):
         super().__init__(*args, **kwargs)
         self.html_start = None
         self.html_end = None
-        self.script_start = None
-        self.script_end = None
-        self.style_start = None
-        self.style_end = None
+        self.scripts = []
+        self.styles = []
         self.head_end = None
         self.body_end = None
 
     def handle_starttag(self, tag, attrs):
         if tag == 'template' and self.html_start is None:
-            self.html_start = self.getpos()[0]
+            self.html_start = self.getpos()
             return
-        if tag == 'script' and self.script_start is None and self.html_end is not None:
-            self.script_start = self.getpos()[0]
+        if tag == 'script' and self.html_end is not None:
+            self.scripts.append({'start': self.getpos(), 'attrs': attrs})
             return
-        if tag == 'style' and self.style_start is None and self.html_end is not None:
-            self.style_start = self.getpos()[0]
+        if tag == 'style' and self.html_end is not None:
+            self.styles.append({'start': self.getpos(), 'attrs': attrs})
             return
 
     def handle_endtag(self, tag):
         if tag == 'template' and self.html_end is None:
-            self.html_end = self.getpos()[0]
+            self.html_end = self.getpos()
             return
-        if tag == 'script' and self.script_end is None and self.script_start is not None:
-            self.script_end = self.getpos()[0]
+        if tag == 'script' and self.html_end is not None:
+            if 'end' in self.scripts[-1]:
+                raise Exception("end tag registered twice")
+            self.scripts[-1]['end'] = self.getpos()
             return
-        if tag == 'style' and self.style_end is None and self.style_start is not None:
-            self.style_end = self.getpos()[0]
+        if tag == 'style' and self.html_end is not None:
+            if 'end'  in self.styles[-1]:
+                raise Exception("end tag registered twice")
+            self.styles[-1]['end'] = self.getpos()
             return
         if tag == 'head':
             self.head_end = self.getpos()[0]
@@ -51,3 +53,26 @@ class TemplateParser(HTMLParser):
         extend_template = extends_regex.search(data)
         if extend_template and Path(extend_template.group('template')).suffix != '.sft':
             raise Exception('SFT can be used only within another SFT')
+
+    def get_contents(self, tag):
+        start = tag["start"][0]
+        end = tag["end"][0]
+        attrs = tag.get("attrs", [])
+        return {
+            "lines": self.lines[start:end-1],
+            "attrs": attrs
+        }
+
+    def parse_sft(self, sft_template):
+        self.feed(sft_template)
+        self.lines = sft_template.split('\n')
+
+        if self.html_start and self.html_end:
+            html = self.get_contents({"start": self.html_start, "end": self.html_end})
+            scripts = [self.get_contents(script) for script in self.scripts]
+            styles = [self.get_contents(style) for style in self.styles]
+
+            return html, scripts, styles
+
+        else:
+            return None, None, None
