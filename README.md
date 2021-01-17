@@ -15,7 +15,7 @@ An example Single File Template:
 `example.sft`
 ```html
 <template>
-{% extends 'example/base.sft' %}}
+{% extends 'example/base.sft' %}
 {% block main %}
     <h1>This is index page</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos 
@@ -43,7 +43,7 @@ Which Django-SFT will turn into 3 separate files (.html, .js and .css) and both 
 
 `sft/example.html`
 ```html
-{% extends 'example/base.sft' %}}
+{% extends 'example/base.sft' %}
 {% block main %}
     <h1>This is index page</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos
@@ -178,7 +178,7 @@ Single file templates can also extend other STFs.
 
 ```html
 <template>
-{% extends 'example/base.sft' %}}
+{% extends 'example/base.sft' %}
 {% block main %}
     <h1>This is index page</h1>
     <h2>Update</h2>
