@@ -5,15 +5,19 @@ Django Single File Templates
 
 [![Python 3.x](https://img.shields.io/pypi/pyversions/django-sft.svg?logo=python&logoColor=white)](https://pypi.org/project/django-sft/)
 
+> Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
+
+
 Django Single File Templates \-- inspired by Vue's Single file
 components
 
 Make your Django templates more organized by holding your HTML and all the related CSS and JavaScript in a sensible way.
 
-An example Single File Template:
+An example Single File Template (the emoji comments are not part of it, they're just here for explanation):
 
 `example.sft`
 ```html
+👇 Your regular Django Template goes here (with all its usual functionality) 👇
 <template>
 {% extends 'example/base.sft' %}
 {% block main %}
@@ -26,10 +30,12 @@ An example Single File Template:
 {% endblock %}
 </template>
 
+👇 Your JavaScript goes here 👇
 <script>
 document.getElementById('time').innerHTML = new Date();
 </script>
 
+👇 Your CSS goes here 👇
 <style>
 p {
     width: 50%;
@@ -39,7 +45,7 @@ p {
 </style>
 ```
 
-Which Django-SFT will turn into 3 separate files (.html, .js and .css) and both the static files (.js and .css) will be injected into the .html. So the resulting .html file will look something like this:
+Which Django-SFT will turn into 3 separate files (.html, .js and .css) and both the JS and CSS will be injected into the .html. So the resulting .html file will look something like this:
 
 `sft/example.html`
 ```html
@@ -54,15 +60,19 @@ Which Django-SFT will turn into 3 separate files (.html, .js and .css) and both 
 {% endblock %}
 
 {% block sft_style %}
+⭐️ See how the CSS was extracted into a separate file, but it's now automatically included in the template ⭐️
 <link rel="stylesheet" href="{% static 'example/sft/index.css'%}"></link>
 {% endblock sft_style %}
 
 {% block sft_script %}
+⭐️ See how the JS was extracted into a separate file, but it's now automatically included in the template ⭐️
 <script src="{% static 'example/sft/index.js'%}"></script>
 {% endblock sft_script %}
 ```
 
-> Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
+This pattern:
+- Allows you to have all the pieces that are needed for the template to function in **one file**
+- Is flexible enough to support much more complicated examples than the one above
 
 Motivation
 ----------
