@@ -10,13 +10,17 @@ components
 
 Make your Django templates more organized by holding your HTML and all the related CSS and JavaScript in a sensible way.
 
+An example Single File Template:
+
 `example.sft`
 ```html
 <template>
 {% extends 'example/base.sft' %}}
 {% block main %}
     <h1>This is index page</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur reprehenderit, laboriosam exercitationem, provident aut.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos 
+    inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur 
+    reprehenderit, laboriosam exercitationem, provident aut.</p>
 
     <h2 id="time"></h2>
 {% endblock %}
@@ -34,6 +38,30 @@ p {
 }
 </style>
 ```
+
+Which Django-SFT will turn into 3 separate files (.html, .js and .css) and both the static files (.js and .css) will be injected into the .html. So the resulting .html file will look something like this:
+
+`sft/example.html`
+```html
+{% extends 'example/base.sft' %}}
+{% block main %}
+    <h1>This is index page</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eaque obcaecati maxime eos
+    inventore tenetur, debitis atque quaerat modi, et illum id error quisquam consequatur 
+    reprehenderit, laboriosam exercitationem, provident aut.</p>
+
+    <h2 id="time"></h2>
+{% endblock %}
+
+{% block sft_style %}
+<link rel="stylesheet" href="{% static 'example/sft/index.css'%}"></link>
+{% endblock sft_style %}
+
+{% block sft_script %}
+<script src="{% static 'example/sft/index.js'%}"></script>
+{% endblock sft_script %}
+```
+
 > Disclaimer: This package serves as a proof of concept rather than a production-ready solution!
 
 Motivation
@@ -122,6 +150,7 @@ script and style tags:
     </body>
 </html>
 </template>
+
 <script>
 const page = document.getElementById('page');
 page.addEventListener('click', (ev) => {
@@ -206,13 +235,54 @@ Single file templates will automatically be parsed and compiled when you
 How does it work?
 -----------------
 
-When SFT is compiled (on `runserver` or manually), django-sft will grab
-the SFT file and produce appropriate `.js`, `.css` and `.html` files.
+When SFT is compiled (on `runserver` or manually by running `manage.py compile_sft`), django-sft
+will grab the SFT file and produce appropriate `.js`, `.css` and `.html` files.
 They will be created in `sft` directory (under `static` and `templates`
 directories respectively). The html files will be automatically injected
 with references to the static files. When a view will try to render
 `.sft` template, the SFT Template Loader will look for resulting `.html`
 file instead and return that.
+
+So for example if you have an `example` app in your Django project, you might define `index.sft`
+and `base.sft` Single File Templates like so:
+
+```
+example
+├── __init__.py
+├── admin.py
+├── apps.py
+├── models.py
+├── templates
+│   └── example
+│       ├── base.sft 👈
+│       └── index.sft 👈
+├── tests.py
+└── views.py
+```
+
+This will then compile to
+
+```
+example
+├── ...
+...
+├── static
+│   └── example
+│       └── sft
+│           ├── base.css 👈
+│           ├── base.js 👈
+│           ├── index.css 👈
+│           └── index.js 👈
+└── templates
+    └── example
+        ├── base.sft
+        ├── index.sft
+        └── sft
+            ├── base.html 👈
+            └── index.html 👈
+```
+
+And the `.html` files will have the related static files automatically injected.
 
 The current implementation is quite simple and serves as a proof of
 concept rather than a production-ready solution.
