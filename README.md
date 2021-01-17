@@ -184,7 +184,7 @@ def view(request):
     return render('my-template.sft')
 ```
 
-Single file templates can also extend other STFs.
+Single file templates can also extend other SFTs.
 
 ```html
 <template>
